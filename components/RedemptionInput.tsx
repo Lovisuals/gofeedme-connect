@@ -11,7 +11,6 @@ export default function RedemptionInput() {
     if (code.length < 6) return;
     setStatus('loading');
     
-    // Simulate API verification for UI demo
     setTimeout(() => {
       if (code === '123456') setStatus('success');
       else setStatus('error');
