@@ -1,12 +1,14 @@
-import './globals.css';
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import Footer from '@/components/Footer';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const inter = Inter({ subsets: ['latin'] });
 
-export const metadata = {
-  title: 'GoFeedMe Connect',
-  description: 'Group buying for food made simple.',
+export const metadata: Metadata = {
+  title: 'GoFeedMe | Bulk Food Sharing',
+  description: 'Join neighbors to buy food in bulk and save money.',
 };
 
 export default function RootLayout({
@@ -16,9 +18,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.variable}>
+      <body className={inter.className}>
         <ThemeProvider>
-          {children}
+          <div className="min-h-screen flex flex-col">
+            <div className="flex-grow">
+              {children}
+            </div>
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>

@@ -1,53 +1,86 @@
 import Link from 'next/link';
-import Image from 'next/image';
-import { MapPin } from 'lucide-react';
-import { formatNaira, calculateProgress } from '@/lib/utils';
+import { MapPin, User, CheckCircle2 } from 'lucide-react';
 import { Pool } from '@/types';
+import { formatNaira, calculateProgress, cn } from '@/lib/utils';
 
 export default function PoolCard({ pool }: { pool: Pool }) {
-  const percent = calculateProgress(pool.raised_amount, pool.total_amount);
+  const progress = calculateProgress(pool.slots_filled, pool.slots_total);
+  const isCompleted = pool.status === 'completed';
 
   return (
-    <Link href={`/pools/${pool.id}`} className="block bg-white rounded-xl shadow-card hover:shadow-lg transition-all border border-gray-100 overflow-hidden group">
-      <div className="relative h-48 w-full bg-gray-200">
-        <Image 
-          src={pool.image_url} 
-          alt={pool.title} 
-          fill 
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        {pool.is_verified && (
-           <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-gray-800 flex items-center shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-blue-500 mr-1"></span> VERIFIED MERCHANT
-           </div>
-        )}
-      </div>
-      
-      <div className="p-5">
-        <h3 className="font-bold text-lg text-gray-900 leading-snug mb-3 line-clamp-2 min-h-[3.5rem] group-hover:text-primary transition-colors">
-          {pool.title}
-        </h3>
-        
-        <div className="w-full bg-gray-200 rounded-full h-1.5 mb-2 overflow-hidden">
-          <div className="bg-primary h-1.5 rounded-full transition-all duration-500" style={{ width: `${percent}%` }}></div>
+    <Link href={`/pools/${pool.id}`} className="group block h-full">
+      <div className={cn(
+        "h-full flex flex-col bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1",
+        isCompleted && "opacity-80 grayscale hover:grayscale-0 hover:opacity-100"
+      )}>
+        {/* Image Section */}
+        <div className="relative h-48 w-full bg-gray-100 overflow-hidden">
+          <img 
+            src={pool.image_url} 
+            alt={pool.title} 
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-700 shadow-sm flex items-center gap-1">
+             <MapPin className="w-3 h-3 text-primary" /> {pool.location}
+          </div>
+          {isCompleted && (
+            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+              <span className="bg-green-500 text-white px-4 py-1.5 rounded-full font-bold text-sm flex items-center gap-2 shadow-lg">
+                <CheckCircle2 className="w-4 h-4" /> COMPLETED
+              </span>
+            </div>
+          )}
         </div>
 
-        <div className="flex justify-between items-end mb-4">
-          <div>
-            <p className="font-bold text-gray-900">{formatNaira(pool.raised_amount)}</p>
-            <p className="text-xs text-gray-500">raised of {formatNaira(pool.total_amount)}</p>
-          </div>
-          <div className="text-right">
-             <span className={`inline-block text-xs font-bold px-2 py-1 rounded-md ${pool.slots_total - pool.slots_filled <= 2 ? 'bg-red-50 text-red-600' : 'bg-green-50 text-primary'}`}>
-               {pool.slots_total - pool.slots_filled} slots left
-             </span>
-          </div>
-        </div>
-
-        <div className="border-t border-gray-50 pt-3 flex items-center text-xs text-gray-400 gap-3">
-            <span className="flex items-center gap-1 truncate max-w-[200px]">
-              <MapPin className="w-3 h-3" /> {pool.location}
+        {/* Content Section */}
+        <div className="p-5 flex flex-col flex-grow">
+          <div className="flex justify-between items-start mb-2">
+            <span className="inline-block px-2.5 py-0.5 rounded-md bg-gray-100 text-gray-600 text-[10px] uppercase tracking-wider font-bold">
+              {pool.category}
             </span>
+            {pool.is_verified && (
+               <span className="text-[10px] flex items-center gap-1 text-blue-600 font-medium bg-blue-50 px-2 py-0.5 rounded-full">
+                 Verified <CheckCircle2 className="w-3 h-3" />
+               </span>
+            )}
+          </div>
+
+          <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-primary transition-colors line-clamp-2">
+            {pool.title}
+          </h3>
+
+          <div className="mt-auto">
+            {/* Progress Bar */}
+            <div className="w-full bg-gray-100 rounded-full h-2.5 mb-3 overflow-hidden">
+              <div 
+                className="bg-primary h-2.5 rounded-full transition-all duration-1000 ease-out" 
+                style={{ width: `${progress}%` }}
+              ></div>
+            </div>
+
+            <div className="flex justify-between items-end">
+              <div>
+                <p className="text-xs text-gray-400 font-medium mb-0.5">Price per slot</p>
+                <p className="text-xl font-bold text-gray-900">
+                  {formatNaira(pool.total_amount / pool.slots_total)}
+                </p>
+              </div>
+              <div className="text-right">
+                <div className="flex -space-x-2 justify-end mb-1">
+                  {[...Array(Math.min(3, pool.slots_filled))].map((_, i) => (
+                    <div key={i} className="w-6 h-6 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-[8px] overflow-hidden">
+                      <User className="w-4 h-4 text-gray-400" />
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs font-medium text-gray-500">
+                  <span className={cn("text-primary font-bold", progress >= 100 ? "text-red-500" : "")}>
+                    {pool.slots_filled}
+                  </span>/{pool.slots_total} joined
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </Link>
