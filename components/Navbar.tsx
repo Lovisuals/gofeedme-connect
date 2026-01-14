@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Search, UserCircle } from 'lucide-react';
+import { Search, Menu, UserCircle, HeartHandshake, Heart, Megaphone } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
 import { createBrowserClient } from '@supabase/ssr';
 import { useEffect, useState } from 'react';
@@ -32,50 +32,70 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white border-b border-gray-100 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <nav className="bg-primary shadow-lg sticky top-0 z-50 border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 relative flex items-center justify-between text-white">
         
-        <div className="flex items-center gap-4">
-          <Link href="/" className="flex flex-col leading-none group select-none" onDoubleClick={toggleTheme}> 
-            <div className="flex items-center gap-1">
-               <span className="text-2xl font-bold text-primary tracking-tight transition-colors">GoFeedMe</span>
-               {isOpayMode && (
-                 <span className="bg-[#E8FBF5] text-[#1DC9A0] text-[10px] px-1.5 py-0.5 rounded border border-[#1DC9A0] font-bold animate-in fade-in zoom-in">
-                   PARTNER
-                 </span>
-               )}
-            </div>
-            <span className="text-xs text-gray-text font-medium tracking-wider uppercase">Connect</span>
+        {/* LEFT: Powerful SEARCH Button */}
+        <div className="flex items-center">
+          <Link href="/search" className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold px-4 py-2.5 rounded-full transition-all active:scale-95">
+            <Search className="w-5 h-5" />
+            <span className="hidden md:inline">Search</span>
           </Link>
         </div>
 
-        <div className="hidden md:flex flex-1 max-w-md mx-8 relative">
-          <input 
-            type="text" 
-            placeholder="Search by hub (e.g., 'Tejuosho Market')..." 
-            className="w-full pl-10 pr-4 py-2 rounded-full bg-gray-light border-transparent focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm"
-          />
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+        {/* CENTER: The "Nature-Blend" Circle Logo */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+          <Link href="/" className="group flex flex-col items-center justify-center" onDoubleClick={toggleTheme}> 
+             <div className="bg-white p-3 rounded-full shadow-xl group-hover:scale-105 transition-transform duration-300 ring-4 ring-white/30">
+               <HeartHandshake className="w-8 h-8 text-primary fill-primary/10" />
+             </div>
+             <div className="mt-1 flex flex-col leading-none text-center">
+               <span className="text-lg font-extrabold tracking-tight text-white drop-shadow-md">
+                 GoFeedMe
+               </span>
+               <span className="text-[10px] font-bold text-white/90 uppercase tracking-widest">Connect</span>
+             </div>
+             {isOpayMode && (
+               <span className="absolute -top-2 -right-4 bg-[#1DC9A0] text-white text-[9px] px-2 py-0.5 rounded-full font-bold shadow-sm border border-white">
+                 OPAY
+               </span>
+             )}
+          </Link>
         </div>
 
-        <div className="flex items-center space-x-4">
-          {user ? (
-             <div className="flex items-center gap-4">
-                <Link href="/dashboard" className="text-sm font-bold text-gray-700">Dashboard</Link>
-                <button onClick={handleSignOut} className="text-sm text-gray-500 hover:text-red-500">Sign Out</button>
-             </div>
-          ) : (
-             <Link href="/auth/login" className="hidden md:flex text-gray-600 hover:text-black font-medium text-sm items-center gap-1">
-               <UserCircle className="w-5 h-5" /> Sign In
-             </Link>
-          )}
-          
+        {/* RIGHT: Powerful DONATE & FUNDRAISE Buttons */}
+        <div className="flex items-center gap-3 md:gap-4">
+          {/* Donate Button (Secondary) */}
+          <Link href="/donate" className="hidden md:flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold px-4 py-2.5 rounded-full transition-all active:scale-95">
+            <Heart className="w-5 h-5" />
+            <span>Donate</span>
+          </Link>
+
+          {/* Fundraise Button (Primary - White Pop) */}
           <Link 
             href="/create" 
-            className="bg-primary hover:bg-primary-hover text-white px-5 py-2.5 rounded-lg font-bold text-sm shadow-md transition-colors"
+            className="flex items-center gap-2 bg-white text-primary hover:bg-gray-50 font-bold px-5 py-3 rounded-full shadow-md transition-all hover:shadow-lg active:scale-95"
           >
-            Start a Pool
+            <Megaphone className="w-5 h-5" />
+            <span className="hidden md:inline">Fundraise</span>
+            <span className="md:hidden">Start</span>
           </Link>
+
+          {/* User Profile Link (Minimalist) */}
+          {user ? (
+             <Link href="/dashboard" className="hidden md:flex ml-2 p-1 bg-white/10 rounded-full hover:bg-white/20 transition-colors text-white/90 hover:text-white" title="Dashboard">
+                <UserCircle className="w-7 h-7" />
+             </Link>
+          ) : (
+             <Link href="/auth/login" className="hidden md:flex ml-2 p-1 text-white/90 hover:text-white transition-colors" title="Sign In">
+               <UserCircle className="w-7 h-7" />
+             </Link>
+          )}
+
+          {/* Mobile Menu Button (White) */}
+          <button className="md:hidden p-2 text-white/90 hover:text-white">
+            <Menu className="w-7 h-7" />
+          </button>
         </div>
       </div>
     </nav>
