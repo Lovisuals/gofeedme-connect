@@ -10,28 +10,22 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#27C932', // The Official GoFundMe Green
-          hover: '#1BB635',   // Slightly darker for interaction
-          light: '#E9F9EB',   // The soft green background used in badges
+          DEFAULT: '#02a95c', // The Official Source Code Green
+          hover: '#028e4d',
+          dark: '#017a42',
+          light: '#e6f6ef',
         },
-        gray: {
-          50: '#F8F8F8',      // The exact off-white background
-          100: '#f4f4f4',
-          text: '#767676',    // The specific muted text color
-          dark: '#333333',    // The strong heading color
+        accent: {
+          DEFAULT: '#FBBF24', // Warm Harvest Yellow (for contrast)
         }
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
       },
       boxShadow: {
-        'card': '0 4px 20px rgba(0,0,0,0.08)', // The "Float" shadow
-        'card-hover': '0 10px 25px rgba(0,0,0,0.12)',
+        'card': '0 4px 20px rgba(0,0,0,0.08)',
+        'floating': '0 10px 40px -10px rgba(0,0,0,0.2)',
       },
-      borderRadius: {
-        'xl': '12px',
-        '2xl': '16px',
-      }
     },
   },
   plugins: [],
