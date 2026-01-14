@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import PoolCard from '@/components/PoolCard';
-import { ArrowRight, ShieldCheck, Zap, Users } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Heart } from 'lucide-react';
 import { getActivePools, getCompletedPools } from '@/lib/actions';
 
 export const dynamic = 'force-dynamic';
@@ -10,104 +10,57 @@ export default async function Home() {
   const completedPools = await getCompletedPools() || [];
 
   return (
-    <main className="min-h-screen bg-white font-sans">
+    <main className="min-h-screen bg-white font-sans text-gray-900">
       <Navbar />
       
-      {/* VISUAL HERO SECTION */}
-      <section className="relative bg-[#02a95c] overflow-hidden">
-        {/* Background Pattern/Image Overlay */}
-        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/food.png')]"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-transparent"></div>
+      {/* BRAND HERO SECTION */}
+      <section className="relative bg-[#02a95c] text-white pt-16 pb-24 px-4 overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
         
-        <div className="relative max-w-7xl mx-auto px-4 py-24 sm:py-32 flex flex-col md:flex-row items-center gap-12">
-          
-          <div className="flex-1 text-center md:text-left text-white space-y-6">
-            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full text-sm font-bold border border-white/20">
-              <Zap className="w-4 h-4 text-yellow-300 fill-yellow-300" />
-              <span>#1 Food Pooling App in Lagos</span>
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1]">
-              Beat inflation. <br/>
-              <span className="text-[#a5f3d1]">Buy together.</span>
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 relative z-10">
+          <div className="flex-1 text-center md:text-left space-y-6">
+            <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-[1.1]">
+              Your food. <br/>
+              <span className="text-[#a5f3d1]">Funded together.</span>
             </h1>
-            
-            <p className="text-lg md:text-xl text-white/90 max-w-xl leading-relaxed">
-              Join trusted neighbors to split the cost of bags of Rice, Beans, and Proteins. 
-              Secure escrow payments mean you never lose money.
+            <p className="text-xl text-white/90 leading-relaxed max-w-lg mx-auto md:mx-0">
+              The trusted place to split bulk food costs with neighbors. Beat inflation by buying as a team.
             </p>
-
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center md:justify-start">
-              <a href="/create" className="bg-white text-primary hover:bg-gray-50 px-8 py-4 rounded-full font-bold text-lg shadow-xl transition-transform hover:-translate-y-1">
+              <a href="/create" className="bg-[#fcb449] hover:bg-[#e5a33e] text-gray-900 font-bold text-lg px-8 py-4 rounded-xl shadow-lg transition-transform hover:-translate-y-1">
                 Start a Feed Pool
               </a>
-              <a href="#active-pools" className="px-8 py-4 rounded-full font-bold text-white border-2 border-white/30 hover:bg-white/10 transition-colors">
-                Find a Hub Near Me
+              <a href="#pools" className="bg-white/10 hover:bg-white/20 text-white font-bold text-lg px-8 py-4 rounded-xl backdrop-blur-sm transition-colors">
+                How it works
               </a>
             </div>
           </div>
-
-          {/* Hero Image / Illustration */}
-          <div className="hidden md:block flex-1 relative">
-             <div className="relative z-10 bg-white p-2 rounded-2xl shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
-               <img 
-                 src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&auto=format&fit=crop" 
-                 alt="Happy shoppers" 
-                 className="rounded-xl w-full h-[400px] object-cover"
-               />
-               <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur px-4 py-3 rounded-xl shadow-lg flex items-center gap-3">
-                  <div className="bg-green-100 p-2 rounded-full">
-                    <ShieldCheck className="w-6 h-6 text-green-600" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 font-bold uppercase">Trusted By</p>
-                    <p className="text-sm font-bold text-gray-900">2,000+ Lagosians</p>
-                  </div>
-               </div>
-             </div>
-             {/* Decorative blob */}
-             <div className="absolute top-10 -right-10 w-72 h-72 bg-yellow-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+          
+          <div className="hidden md:block flex-1">
+            <img 
+              src="https://images.unsplash.com/photo-1576613109753-27804de2cba8?auto=format&fit=crop&q=80&w=800" 
+              alt="Community Sharing" 
+              className="rounded-2xl shadow-2xl rotate-2 hover:rotate-0 transition-all duration-500 border-4 border-white/20"
+            />
           </div>
-
         </div>
       </section>
 
-      {/* STATS BAR */}
-      <div className="border-b border-gray-100 bg-white">
-        <div className="max-w-7xl mx-auto px-4 py-6 flex flex-wrap justify-center md:justify-between gap-8 text-center md:text-left">
-          <div className="flex items-center gap-3">
-            <ShieldCheck className="w-8 h-8 text-gray-300" />
-            <div>
-              <p className="font-bold text-gray-900">GoFeedMe Guarantee</p>
-              <p className="text-xs text-gray-500">Refund if not delivered</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <Users className="w-8 h-8 text-gray-300" />
-            <div>
-              <p className="font-bold text-gray-900">Community Verified</p>
-              <p className="text-xs text-gray-500">Real profiles, real humans</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <Zap className="w-8 h-8 text-gray-300" />
-            <div>
-              <p className="font-bold text-gray-900">Fast Pickup</p>
-              <p className="text-xs text-gray-500">Hubs in 12+ Locations</p>
-            </div>
-          </div>
+      {/* TRUST BANNER */}
+      <div className="border-b border-gray-100 bg-gray-50">
+        <div className="max-w-7xl mx-auto py-4 px-4 flex justify-center gap-8 text-sm text-gray-500 font-medium">
+          <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-green-600" /> 100% Escrow Protection</span>
+          <span className="hidden sm:flex items-center gap-2"><Heart className="w-4 h-4 text-green-600" /> Verified Sellers Only</span>
         </div>
       </div>
 
       {/* ACTIVE POOLS GRID */}
-      <section id="active-pools" className="max-w-7xl mx-auto px-4 py-20">
-        <div className="flex justify-between items-end mb-10">
-          <div>
-            <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">Trending near you</h2>
-            <p className="text-gray-500 mt-2">Join these pools before they close.</p>
-          </div>
-          <a href="/search" className="hidden md:flex text-primary font-bold items-center gap-1 hover:underline">
-            View All Pools <ArrowRight className="w-4 h-4"/>
+      <section id="pools" className="max-w-7xl mx-auto px-4 py-16">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-bold text-gray-800">Trending near Lagos</h2>
+          <a href="/search" className="text-primary font-bold flex items-center text-sm hover:underline hover:bg-primary-light px-3 py-2 rounded-lg transition-colors">
+            View all <ArrowRight className="w-4 h-4 ml-1"/>
           </a>
         </div>
         
@@ -116,41 +69,28 @@ export default async function Home() {
             {activePools.map((pool: any) => <PoolCard key={pool.id} pool={pool} />)}
           </div>
         ) : (
-          <div className="text-center py-20 bg-gray-50 rounded-3xl border border-dashed border-gray-300">
-            <div className="inline-flex bg-white p-4 rounded-full shadow-sm mb-4">
-              <Users className="w-8 h-8 text-gray-400" />
-            </div>
-            <h3 className="text-xl font-bold text-gray-900">No active pools yet</h3>
-            <p className="text-gray-500 mb-6">Be the first to start a pool in your area.</p>
-            <a href="/create" className="text-primary font-bold hover:underline">Start a Pool &rarr;</a>
+          <div className="p-12 text-center bg-gray-50 rounded-xl border border-dashed border-gray-200">
+             <p className="text-gray-500">No active pools found. Start one today!</p>
           </div>
         )}
       </section>
 
-      {/* TRUST HISTORY (Success Stories) */}
+      {/* SUCCESS STORIES (Gray Background) */}
       {completedPools.length > 0 && (
-        <section className="bg-gray-50 py-20 border-t border-gray-200">
+        <section className="bg-gray-50 py-16 border-t border-gray-200">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="flex items-center gap-2 mb-10">
-              <div className="bg-green-100 p-2 rounded-full">
-                <ShieldCheck className="w-6 h-6 text-green-600" />
-              </div>
-              <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Success Stories</h2>
-            </div>
-            
+            <h2 className="text-2xl font-bold text-gray-800 mb-8">Recent Success Stories</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {completedPools.map((pool: any) => (
-                <div key={pool.id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all group">
-                  <div className="h-40 bg-gray-200 relative overflow-hidden">
-                    <img src={pool.image_url} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={pool.title} />
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                      <span className="bg-white/90 backdrop-blur text-green-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm flex items-center gap-1">
-                        <ShieldCheck className="w-3 h-3" /> Delivered
-                      </span>
+                <div key={pool.id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden opacity-90 hover:opacity-100 transition-opacity">
+                  <div className="h-32 bg-gray-200 relative">
+                    <img src={pool.image_url} className="w-full h-full object-cover" alt={pool.title} />
+                    <div className="absolute top-2 right-2 bg-green-100 text-green-800 text-[10px] font-bold px-2 py-1 rounded-full border border-green-200">
+                      DELIVERED
                     </div>
                   </div>
                   <div className="p-4">
-                    <h3 className="font-bold text-gray-900 text-sm truncate">{pool.title}</h3>
+                    <h3 className="font-bold text-sm text-gray-900 truncate">{pool.title}</h3>
                     <p className="text-xs text-gray-500 mt-1">{pool.location}</p>
                   </div>
                 </div>
