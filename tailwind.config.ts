@@ -10,25 +10,27 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#02a95c', // The Official Vibrant GoFundMe Green
-          hover: '#028e4d',   // Darker shade for hover
-          light: '#e6f6ef',   // Light green background
+          DEFAULT: '#27C932', // The Official GoFundMe Green
+          hover: '#1BB635',   // Slightly darker for interaction
+          light: '#E9F9EB',   // The soft green background used in badges
         },
         gray: {
-          50: '#fbf8f6',      // Warm off-white background
+          50: '#F8F8F8',      // The exact off-white background
           100: '#f4f4f4',
-          text: '#767676',    // Standard muted text
+          text: '#767676',    // The specific muted text color
+          dark: '#333333',    // The strong heading color
         }
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'], // Clean, modern font
+        sans: ['Inter', 'sans-serif'],
       },
       boxShadow: {
-        'card': '0 0 0 1px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.08)', // The specific "Trust Card" shadow
-        'card-hover': '0 0 0 1px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08)',
+        'card': '0 4px 20px rgba(0,0,0,0.08)', // The "Float" shadow
+        'card-hover': '0 10px 25px rgba(0,0,0,0.12)',
       },
       borderRadius: {
-        'xl': '12px', // Softer corners
+        'xl': '12px',
+        '2xl': '16px',
       }
     },
   },
