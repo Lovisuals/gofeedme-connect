@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import PoolCard from '@/components/PoolCard';
-import { ArrowRight, ShieldCheck, Sprout, Users, Wheat, Beef } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Zap, Users, Wheat, Beef, Sprout } from 'lucide-react';
 import { getActivePools, getCompletedPools } from '@/lib/actions';
 
 export const dynamic = 'force-dynamic';
@@ -10,64 +10,109 @@ export default async function Home() {
   const completedPools = await getCompletedPools() || [];
 
   return (
-    <main className="min-h-screen bg-gray-50 font-sans text-gray-900">
+    <main className="min-h-screen bg-white font-sans text-gray-text">
       <Navbar />
       
-      {/* SOURCE CODE INSPIRED: Hero with Floating Bubbles Concept */}
-      <section className="relative bg-white pt-24 pb-32 overflow-hidden">
-        {/* Abstract Background Shapes */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-            <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-primary/5 blur-[100px]"></div>
-            <div className="absolute top-[20%] -right-[10%] w-[40%] h-[40%] rounded-full bg-accent/10 blur-[100px]"></div>
+      {/* 1. HERO BUBBLES SECTION */}
+      {/* Mimics the 'hero-bubbles' container with floating visuals */}
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        
+        {/* Floating Bubble Images (Absolute Positioned) */}
+        <div className="hidden lg:block absolute inset-0 pointer-events-none opacity-90">
+           {/* Top Left - Rice */}
+           <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=200&h=200" 
+                className="absolute top-24 left-[10%] w-24 h-24 rounded-full object-cover shadow-float animate-bounce-slow" style={{animationDuration: '3s'}} />
+           {/* Bottom Left - Oil */}
+           <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd391f?auto=format&fit=crop&w=200&h=200" 
+                className="absolute bottom-10 left-[15%] w-32 h-32 rounded-full object-cover shadow-float animate-bounce-slow" style={{animationDuration: '4s'}} />
+           {/* Top Right - Tubers */}
+           <img src="https://images.unsplash.com/photo-1610450918386-0925c4046462?auto=format&fit=crop&w=200&h=200" 
+                className="absolute top-28 right-[12%] w-28 h-28 rounded-full object-cover shadow-float animate-bounce-slow" style={{animationDuration: '3.5s'}} />
+           {/* Bottom Right - Livestock */}
+           <img src="https://images.unsplash.com/photo-1541447233767-f01878d6b7b2?auto=format&fit=crop&w=200&h=200" 
+                className="absolute bottom-20 right-[18%] w-20 h-20 rounded-full object-cover shadow-float animate-bounce-slow" style={{animationDuration: '4.5s'}} />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
-           {/* The "Floating Bubbles" - Categories */}
-           <div className="flex justify-center gap-4 mb-8 opacity-80 animate-fade-in-up">
-              <span className="flex items-center gap-1 bg-green-50 text-primary-dark px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-green-100 shadow-sm">
-                <Wheat className="w-3 h-3" /> Staples
-              </span>
-              <span className="flex items-center gap-1 bg-orange-50 text-orange-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-orange-100 shadow-sm">
-                <Beef className="w-3 h-3" /> Proteins
-              </span>
-              <span className="flex items-center gap-1 bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-blue-100 shadow-sm">
-                <Sprout className="w-3 h-3" /> Fresh
-              </span>
-           </div>
-
-           <h1 className="text-6xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-6 leading-[1.1]">
-             The #1 platform for <br/>
-             <span className="text-primary relative">
-               food crowd-buying.
-               <svg className="absolute w-full h-3 -bottom-1 left-0 text-accent/40" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" /></svg>
-             </span>
+        <div className="max-w-4xl mx-auto px-4 relative z-10 text-center">
+           <h2 className="text-gray-light font-bold text-sm uppercase tracking-widest mb-4">
+             #1 Food Crowdfunding Platform
+           </h2>
+           <h1 className="text-5xl md:text-6xl font-bold text-gray-text mb-6 leading-tight">
+             Successful food pools <br/> start here.
            </h1>
-           
-           <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed">
-             Join 100,000+ Nigerians fighting food inflation. Pool funds with neighbors to buy bags of rice, beans, and livestock at wholesale farm prices.
-           </p>
-
-           <div className="flex flex-col sm:flex-row justify-center gap-4">
-             <a href="/create" className="bg-accent hover:bg-yellow-400 text-gray-900 text-lg font-bold px-10 py-4 rounded-full shadow-xl shadow-accent/20 transition-all hover:-translate-y-1">
-               Start a Food Pool
-             </a>
-             <a href="#active-pools" className="flex items-center justify-center gap-2 bg-white text-gray-700 text-lg font-bold px-10 py-4 rounded-full border border-gray-200 shadow-sm hover:bg-gray-50 transition-all">
-               <Search className="w-5 h-5" /> Find a Hub
+           <div className="flex justify-center">
+             <a href="/create" className="bg-primary hover:bg-primary-hover text-white text-lg font-bold px-10 py-4 rounded-lg shadow-lg transition-transform hover:-translate-y-1">
+               Start a GoFeedMe
              </a>
            </div>
         </div>
       </section>
 
-      {/* ACTIVE POOLS GRID */}
-      <section id="active-pools" className="max-w-7xl mx-auto px-4 py-20">
-        <div className="flex justify-between items-end mb-10">
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-              <span className="w-2 h-8 bg-primary rounded-full"></span>
-              Trending near Lagos
-            </h2>
+      {/* 2. STATS BAR (Exact Divider Look) */}
+      <div className="border-y border-gray-100 bg-white">
+        <div className="max-w-5xl mx-auto px-4 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-100">
+            <div className="p-4 text-center">
+              <div className="flex justify-center mb-2"><Zap className="w-6 h-6 text-gray-400" /></div>
+              <p className="font-bold text-gray-text">Fast & Easy</p>
+              <p className="text-sm text-gray-light">Start a pool in minutes</p>
+            </div>
+            <div className="p-4 text-center">
+               <div className="flex justify-center mb-2"><ShieldCheck className="w-6 h-6 text-gray-400" /></div>
+              <p className="font-bold text-gray-text">100% Guaranteed</p>
+              <p className="text-sm text-gray-light">Funds held in escrow</p>
+            </div>
+            <div className="p-4 text-center">
+               <div className="flex justify-center mb-2"><Users className="w-6 h-6 text-gray-400" /></div>
+              <p className="font-bold text-gray-text">Community Trust</p>
+              <p className="text-sm text-gray-light">Verified sellers only</p>
+            </div>
           </div>
-          <a href="/search" className="text-primary font-bold flex items-center hover:underline">
+        </div>
+      </div>
+
+      {/* 3. CATEGORY BUBBLES (Goal Rings) */}
+      <section className="py-16 bg-gray-50">
+         <div className="max-w-7xl mx-auto px-4">
+            <h2 className="text-2xl font-bold text-gray-text mb-8">Discover pools by category</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+               {/* Staple Foods */}
+               <div className="bg-white p-6 rounded-xl shadow-card text-center group hover:shadow-md transition-shadow cursor-pointer border border-transparent hover:border-primary/20">
+                  <div className="w-16 h-16 mx-auto bg-accent-light rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                     <Wheat className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="font-bold text-gray-text">Staples</h3>
+               </div>
+               {/* Proteins */}
+               <div className="bg-white p-6 rounded-xl shadow-card text-center group hover:shadow-md transition-shadow cursor-pointer border border-transparent hover:border-primary/20">
+                  <div className="w-16 h-16 mx-auto bg-accent-light rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                     <Beef className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="font-bold text-gray-text">Proteins</h3>
+               </div>
+               {/* Fresh */}
+               <div className="bg-white p-6 rounded-xl shadow-card text-center group hover:shadow-md transition-shadow cursor-pointer border border-transparent hover:border-primary/20">
+                  <div className="w-16 h-16 mx-auto bg-accent-light rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                     <Sprout className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="font-bold text-gray-text">Fresh Produce</h3>
+               </div>
+               {/* Community */}
+               <div className="bg-white p-6 rounded-xl shadow-card text-center group hover:shadow-md transition-shadow cursor-pointer border border-transparent hover:border-primary/20">
+                  <div className="w-16 h-16 mx-auto bg-accent-light rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                     <Users className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="font-bold text-gray-text">Community</h3>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      {/* 4. ACTIVE POOLS GRID */}
+      <section className="max-w-7xl mx-auto px-4 py-20">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-bold text-gray-text">Trending near Lagos</h2>
+          <a href="/search" className="text-gray-light font-medium hover:text-primary transition-colors flex items-center text-sm">
             View all <ArrowRight className="w-4 h-4 ml-1"/>
           </a>
         </div>
@@ -77,10 +122,9 @@ export default async function Home() {
             {activePools.map((pool: any) => <PoolCard key={pool.id} pool={pool} />)}
           </div>
         ) : (
-          <div className="p-16 text-center bg-white rounded-3xl border-2 border-dashed border-gray-200">
-             <Sprout className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-             <h3 className="text-xl font-bold text-gray-900">No active pools yet</h3>
-             <a href="/create" className="text-primary font-bold hover:underline">Start the first pool &rarr;</a>
+          <div className="p-12 text-center bg-gray-50 rounded-xl border border-dashed border-gray-200">
+             <h3 className="text-lg font-bold text-gray-text">No active pools yet</h3>
+             <a href="/create" className="text-primary font-bold hover:underline">Be the first to start one</a>
           </div>
         )}
       </section>

@@ -10,22 +10,25 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#02a95c', // The Official Source Code Green
-          hover: '#028e4d',
-          dark: '#017a42',
-          light: '#e6f6ef',
+          DEFAULT: '#02a95c', // The Official GFM Green Button Color
+          hover: '#028e4d',   // Darker hover state
+        },
+        gray: {
+          50: '#f8f8f8',      // The slight off-white background
+          text: '#333333',    // The strong heading color
+          light: '#767676',   // The supporting text color
         },
         accent: {
-          DEFAULT: '#FBBF24', // Warm Harvest Yellow (for contrast)
+          light: '#e9fcce',   // The light green ring color
         }
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'], // Closest free match to GoFundMeSans
       },
       boxShadow: {
-        'card': '0 4px 20px rgba(0,0,0,0.08)',
-        'floating': '0 10px 40px -10px rgba(0,0,0,0.2)',
-      },
+        'card': '0 0 0 1px rgba(0,0,0,0.02), 0 2px 8px rgba(0,0,0,0.06)', // Ultra subtle
+        'float': '0 20px 40px -10px rgba(0,0,0,0.1)', // For the hero bubbles
+      }
     },
   },
   plugins: [],
