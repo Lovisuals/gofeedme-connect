@@ -33,6 +33,6 @@ export async function GET(request: Request) {
     }
   }
 
-  // return the user to an error page with instructions
+  // return the user to an error page if code exchange fails
   return NextResponse.redirect(`${origin}/auth/auth-code-error`)
 }
