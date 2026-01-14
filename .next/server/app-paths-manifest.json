@@ -1,3 +1,9 @@
 {
+  "/_not-found": "app/_not-found.js",
+  "/auth/login/page": "app/auth/login/page.js",
+  "/create/page": "app/create/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/pools/[id]/page": "app/pools/[id]/page.js",
+  "/auth/route": "app/auth/route.js",
   "/page": "app/page.js"
 }

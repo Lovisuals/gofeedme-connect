@@ -8,19 +8,17 @@ export interface Pool {
   slots_total: number;
   slots_filled: number;
   location: string;
-  deadline?: string;
-  status: 'active' | 'completed' | 'failed';
-  category?: string;
-  creator_name?: string;
+  category: string;
+  status: 'active' | 'completed' | 'cancelled';
+  creator_id?: string;
   is_verified?: boolean;
+  created_at?: string;
 }
 
-export interface Contribution {
+export interface User {
   id: string;
-  amount: number;
-  user_id: string;
-  pool_id: string;
-  redemption_code?: string;
-  status: 'escrow' | 'released';
-  created_at: string;
+  full_name?: string;
+  email?: string;
+  avatar_url?: string;
+  is_seller?: boolean;
 }

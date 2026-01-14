@@ -14,11 +14,11 @@ export function formatNaira(amount: number) {
   }).format(amount);
 }
 
-export function generateOTP() {
-  return Math.floor(1000 + Math.random() * 9000).toString();
+export function calculateProgress(current: number, total: number) {
+  if (total === 0) return 0;
+  return Math.min(100, Math.max(0, (current / total) * 100));
 }
 
-export function calculateProgress(current: number, total: number) {
-    if (total === 0) return 0;
-    return Math.min(Math.round((current / total) * 100), 100);
+export function generateOTP() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
 }
